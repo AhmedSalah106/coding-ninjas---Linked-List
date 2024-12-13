@@ -1,0 +1,36 @@
+Node *deleteNode(Node *head, int k) 
+{
+    if(head == nullptr || head->next == nullptr)  return nullptr;
+    int cnt = 0;
+    Node* temp = head;
+    if(k==1)
+    {
+        head = head->next;
+        temp->next = nullptr;
+        delete temp;
+        return head;
+    }
+    while(temp!=nullptr)
+    {
+        cnt++;
+        if(cnt==k) break;
+        temp = temp->next;
+    }
+
+    Node* l = temp->prev;
+    Node* r = temp->next;
+    if(r==nullptr)
+    {
+        l->next = nullptr;
+        delete temp;
+        return head;
+    }
+    temp->next = nullptr;
+    temp->prev = nullptr;
+    l->next = r;
+    r->prev = l;
+    return head;
+}
+
+
+//https://www.naukri.com/code360/problems/delete-k-th-node-from-doubly-linked-list_9723679?utm_source=youtube&utm_medium=affiliate&utm_campaign=Codestudio_Linkedlistseries&leftPanelTabValue=SUBMISSION
